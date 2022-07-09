@@ -1,0 +1,124 @@
+---
+title: Modal
+nav: 2.1
+---
+## Modal
+
+The modal integration type is the easiest one. It takes just around 5 mins of coding to be added.
+
+
+
+## Let's start
+
+### Parameters
+
+| Name      | Type                                                                                   | #      | Description                            |
+| :-------- | :------------------------------------------------------------------------------------- | :-------- | :------------------------------------- |
+| `apiKey` | `String` | Required | Your merchant's API key. |
+| `amount` | `Float` | Required | Total order amount. Must be equal or above 1. |
+| `webhookURL` | `String` | Required | The URL that we will send an IPN notification to after a successful payment. |
+| `successURL` | `String` | Required | success URL where the user will be redirected after a successful payment. |
+| `failureURL` | `String` | Required | failure URL where the user will be redirected after a failed payment. |
+| `description` | `String` | Required | Description of the payment. Can be any string. |
+| `email` | `String` | Optional | Autofilling email field to improve conversion. |
+| `fullName` | `String` | Optional | Autofilling full name field to improve conversion. |
+
+### Response
+
+| HTTP Status      | Response                                                                                   | Description                            |
+| :-------- | :------------------------------------------------------------------------------------- | :------------------------------------- |
+| `200 Success` | `"status": "success"` | The modal will open an render data. |
+| `400 Bad Request` | `"status": "fail", "response": "Invalid parameter/s"` | Missing or invalid parameter/s has been passed. |
+| `401 Unauthorized` | `"status": "fail", "response": "Invalid merchant's API key"` | API Key is wrong or deactivated. Check your key status in the dashboard. |
+
+
+---
+
+
+### Quickstart
+
+1. Add our cdn into your project html file before the closing body tag.
+
+```html filename="index.js"
+ <script src="https://cdn.cycopay.com/bundle.js"></script>
+```
+
+2. Add options and params below
+```html 
+    <script>
+        // merchant supplies this data
+        const options = {
+            amount: 1.8,
+            fullName: "John Doe", // optional
+            email: "John.Doe@gmail.com", // optional
+            apiKey: "_meow_", // supplied from the dashboard
+            webhookURL: "https://www.google.com/", // Add a listener; For tests: webhook.site
+            successURL: "https://www.google.com/",
+            failureURL: "https://www.google.com/",
+            description: "Sample modal description"
+        }
+        const payNow = () => {
+            payWithCycoPay(options)
+        }
+    </script>
+```
+
+
+
+
+
+
+3. Now add a button to execute the payment
+```html
+    <button onclick="payNow()">
+        PAY NOW
+    </button>
+```
+
+4. Your page should look something like this
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p>This is a page to simulate the merchants website</p>
+    <button onclick="payNow()">
+        PAY NOW
+    </button>
+    <script src="https://cdn.cycopay.com/bundle.js"></script>
+    <script>
+        // merchant supplies these data
+        const options = {
+            amount: 1.8,
+            fullName: "John Doe",
+            email: "John.Doe@gmail.com",
+            apiKey: "_meow_"
+            webhookURL: "https://www.google.com/", // Add a listener; For tests: webhook.site
+            successURL: "https://www.google.com/",
+            failureURL: "https://www.google.com/",
+            description: "Sample modal description"
+        }
+        const payNow = () => {
+            payWithCycoPay(options)
+        }
+    </script>
+</body>
+
+</html>
+```
+
+You're done 🥳! Just add a listener in your application for our webhooks in order to get a status of your payment.
+
+## Test webhooks
+
+Test your webhooks following our [webhooks guide](/javascript/v2/features/modal).
+
+

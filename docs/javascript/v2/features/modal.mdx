@@ -1,0 +1,35 @@
+---
+title: Webhooks
+nav: 3.01
+---
+
+## Introduction
+
+In order for your website to confirm payments, whether they are successful or fail from your customers, you have to utilize webhooks.
+
+You can test your webhooks on your live server or at https://webhook.site
+
+
+
+
+## Parameters sent by our servers
+
+Method: ``POST`` 
+
+| Name      | Type                                                                                   | #      | Description                            |
+| :-------- | :------------------------------------------------------------------------------------- | :-------- | :------------------------------------- |
+| `apiKey` | `String` | Always Sent | Your merchant's API key. |
+| `paymentID` | `Float` | Always Sent | Total order amount. Must be equal or above 1. |
+| `email` | `String` | Always Sent | The URL that we will send an IPN notification to after a successful payment. |
+| `amount` | `String` | Always Sent | success URL where the user will be redirected after a successful payment. |
+| `income` | `String` | Always Sent | failure URL where the user will be redirected after a failed payment. |
+| `fees` | `String` | Always Sent | Description of the payment. Can be any string. |
+| `dateCreated` | `String` | Always Sent | Autofilling email field to improve conversion. |
+| `metadata` | `String` | If provided | Autofilling email field to improve conversion. |
+| `status` | `String` | Always Sent | Autofilling full name field to improve conversion. |
+
+## Data
+
+```javascript 
+{"apiKey": "x-x-x-x", "paymentID": "627bsb6e43ed458085579593", "email": "andrew@gmail.com", "amount": 5, "income": 4.05, "fees": 0.95, "metadata": { country: 'US', some_parameter_here: '360' } , "dateCreated": "2022-01-01 06:00:00", "status": "completed"}
+```
